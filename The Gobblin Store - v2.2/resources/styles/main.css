@@ -12,7 +12,6 @@ About Us
 Contact Us
 */ 
 
-
 /*                                        
  #     #                                    
  #     # ######   ##   #####  ###### #####  
@@ -22,7 +21,9 @@ Contact Us
  #     # #      #    # #    # #      #   #  
  #     # ###### #    # #####  ###### #    #    
 */
-
+.navbar {
+  background-color: #a8a5a8;
+}
 /*                                
  #######                                   
  #        ####   ####  ##### ###### #####  
@@ -32,7 +33,9 @@ Contact Us
  #       #    # #    #   #   #      #   #  
  #        ####   ####    #   ###### #    #    
 */
-                                    
+footer {
+  background-color: #9b9b9b;
+}                             
 /*                      
  #     #                 
  ##   ##   ##   # #    # 
@@ -42,7 +45,10 @@ Contact Us
  #     # #    # # #   ## 
  #     # #    # # #    # 
 */
-
+.carousel .carousel-item img {
+  height: 350px;
+  width: 100%;
+}
 /*
   #####                       
  #     # #    #  ####  #####  
@@ -52,7 +58,11 @@ Contact Us
  #     # #    # #    # #      
   #####  #    #  ####  #       
 */ 
-                                          
+.card {
+  width: 18rem;
+  margin: 0px 5px;
+}                      
+ 
 /*
     #                                 #     #        
    # #   #####   ####  #    # #####   #     #  ####  
@@ -72,3 +82,26 @@ Contact Us
  #     # #    # #   ##   #   #    # #    #   #     #     # #    # 
   #####   ####  #    #   #   #    #  ####    #      #####   ####  
 */
+
+
+address {
+  margin: 0px;
+}
+.card-img {
+  transition: transform 2s ease-out;
+  position: relative;
+}
+.card-img:hover {
+  transform: scale(2, 2);
+  object-fit: contain;
+  position: absolute;
+}
+.alert {
+  opacity: .2;
+  margin: 0px;
+  padding: 0px;
+}
+.alert, p {
+  color: black;
+  opacity: .9;
+}
