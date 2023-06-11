@@ -144,8 +144,7 @@
     const itemElement = $(this).find(".card-text").text(); // Supreme Goblin$100
     const itemName = itemElement.split("$")[0]; // Supreme Goblin
     const itemPrice = itemElement.split("$")[1]; // 100
-
-
+    const itemImage = $(this).find(".card-img-top").attr("src"); // Save Goblin image src to itemImage
 
     // check if the item is already in the cart
     let itemExists = false;
@@ -162,6 +161,7 @@
         name: itemName,
         price: itemPrice,
         quantity: 1,
+        image: itemImage,
       });
     }
 
