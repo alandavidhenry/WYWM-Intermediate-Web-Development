@@ -1,4 +1,5 @@
 $(document).ready(function () {
+  // Set product variable
   let product = [];
 
   let itemNumber = 0;
@@ -41,8 +42,10 @@ $(document).ready(function () {
         });
       };
 
+      // Run function
       updateBody(product);
       
+      // Set cartTotal variable
       var cartTotal = 0;
 
       // Update total cost
@@ -56,13 +59,10 @@ $(document).ready(function () {
         
         // Sum array
         cartTotal = cartArray.reduce((a, b) => a + b, 0);
-
-        console.log("Function ran")
       };
       
+      // Run function
       updateCartTotal(product);
-
-      console.log(`On load: ${cartTotal}`);
 
       // Append total cost div to bottom of modal
       modalBody.append(
@@ -96,8 +96,8 @@ $(document).ready(function () {
           .find(".itemSubTotal") // get the itemSubTotal div
           .text(`$${product.price * product.quantity}`); // update the text of the quantity
           
+        // Run function
         updateCartTotal();
-        console.log(`After +: ${cartTotal}`);
 
         // update the total div's text - go up to productWrapper level, and then find the div with .cartTotal class
         // $(this)

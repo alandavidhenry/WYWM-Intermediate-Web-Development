@@ -104,11 +104,27 @@
     </div>
   </div>
 
-    <!-- Shopping Cart Button -->
-    <div id="shoppingCart"></div>
+  <button type="button" class="btn btn-primary" id="liveToastBtn">Show live toast</button>
 
-    <!-- Footer -->
-    <div id="footer"></div>
+  <!-- Bootstrap Toast -->
+  <div class="toast-container position-fixed top-0 end-0 p-3">
+    <div id="liveToast" class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body">
+          You added {item} to basket.
+        </div>
+        <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shopping Cart Button -->
+  <div id="shoppingCart"></div>
+
+  <!-- Footer -->
+  <div id="footer"></div>
+
+  
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
@@ -132,48 +148,70 @@
       // Load shoppingCart.html
       $("#shoppingCart").load("shoppingCart.html");
 
-  // if the user clicks the .card div (goblin item)
-  $(".card").click(function () {
-    let products = [];
+            // if the user clicks the .card div (goblin item)
+      $(".card").click(function () {
+        let products = [];
 
-    // populate the products array with the current product's info
-    if (localStorage.getItem("items")) {
-      products = JSON.parse(localStorage.getItem("items"));
-    }
+        // populate the products array with the current product's info
+        if (localStorage.getItem("items")) {
+          products = JSON.parse(localStorage.getItem("items"));
+        }
 
-    const itemElement = $(this).find(".card-text").text(); // Supreme Goblin$100
-    const itemName = itemElement.split("$")[0]; // Supreme Goblin
-    const itemPrice = itemElement.split("$")[1]; // 100
-    const itemImage = $(this).find(".card-img-top").attr("src"); // Save Goblin image src to itemImage
+        const itemElement = $(this).find(".card-text").text(); // Supreme Goblin$100
+        const itemName = itemElement.split("$")[0]; // Supreme Goblin
+        const itemPrice = itemElement.split("$")[1]; // 100
+        const itemImage = $(this).find(".card-img-top").attr("src"); // Save Goblin image src to itemImage
 
-    // check if the item is already in the cart
-    let itemExists = false;
-    products.forEach((product) => {
-      if (product.name === itemName) {
-        itemExists = true;
-        product.quantity += 1;
-      }
-    });
+        // check if the item is already in the cart
+        let itemExists = false;
+        products.forEach((product) => {
+          if (product.name === itemName) {
+            itemExists = true;
+            product.quantity += 1;
+          }
+        });
 
-    // if the item is not in the cart, add it to the cart
-    if (!itemExists) {
-      products.push({
-        name: itemName,
-        price: itemPrice,
-        quantity: 1,
-        image: itemImage,
+        // if the item is not in the cart, add it to the cart
+        if (!itemExists) {
+          products.push({
+            name: itemName,
+            price: itemPrice,
+            quantity: 1,
+            image: itemImage,
+          });
+        }
+
+        // save the products array to localStorage
+        localStorage.setItem("items", JSON.stringify(products));
+
+        // Add item name to toast
+        let toastBody = $(".toast-body");
+        toastBody.empty(); // empty the initial contents of modal body before adding new items
+        toastBody.append(
+            `You added ${itemName} to your shopping cart.`
+      );
+
+      // Open toast
+      const toast = new bootstrap.Toast(toastLiveExample[0]);
+      toast.show();
+
+        // Open shoppingCartButton.html and update .numberOfItems div
+        $("#shoppingCart").load("shoppingCart.html", () => {
+          $(".numberOfItems").text(products.length);
+        });
       });
-    }
 
-    // save the products array to localStorage
-    localStorage.setItem("items", JSON.stringify(products));
+      // Open Bootstrap Toast
+      const toastTrigger = $('#liveToastBtn');
+      const toastLiveExample = $('#liveToast');
 
-    // Open shoppingCartButton.html and update .numberOfItems div
-    $("#shoppingCart").load("shoppingCart.html", () => {
-      $(".numberOfItems").text(products.length);
+      // if (toastTrigger.length) {
+      //   toastTrigger.on('click', function() {
+      //     const toast = new bootstrap.Toast(toastLiveExample[0]);
+      //     toast.show();
+      //   });
+      // }
     });
-  });
-});
   </script>
 
   </body>
