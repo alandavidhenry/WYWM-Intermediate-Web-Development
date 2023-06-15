@@ -43,7 +43,10 @@
       <p>Please enter your details below and click the 'Order now' button to make your purchase.</p>
       <p>(All fields are required).</p>
 
-      <form>
+      <!-- Alert when form is sent successfully -->
+      <div class="alert">Form Submitted Successfully</div>
+
+      <form method="POST" id="checkoutForm">
         <div class="row g-3 needs-validation" novalidate>
           <div class="col-md-6">
               <label for="inputFirstName" class="col-form-label">First name</label>
@@ -70,7 +73,7 @@
             <label for="phoneNumber" class="col-form-label">Phone Number</label>
             <input type="tel" id="phoneNumber" class="form-control" aria-labelledby="phoneHumberInline" placeholder="00000000000" pattern="^(?:(?:\(?(?:0(?:0|11)\)?[\s-]?\(?|\+)44\)?[\s-]?(?:\(?0\)?[\s-]?)?)|(?:\(?0))(?:(?:\d{5}\)?[\s-]?\d{4,5})|(?:\d{4}\)?[\s-]?(?:\d{5}|\d{3}[\s-]?\d{3}))|(?:\d{3}\)?[\s-]?\d{3}[\s-]?\d{3,4})|(?:\d{2}\)?[\s-]?\d{4}[\s-]?\d{4}))(?:[\s-]?(?:x|ext\.?|\#)\d{3,4})?$" required>
             <div class="invalid-feedback">
-              Please enter a your phone number.
+              Please enter your phone number.
             </div>
           </div>
           <div class="col-md-4">
@@ -116,11 +119,83 @@
     <!-- Footer -->
     <div id="footer"></div>
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-      crossorigin="anonymous"
-    ></script>
+      crossorigin="anonymous">
+    </script>
+
+    <!-- Firebase -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+
+      // TODO: Replace the following with your app's Firebase project configuration
+      // See: https://firebase.google.com/docs/web/learn-more#config-object
+      const firebaseConfig = {
+        // ...
+        // The value of `databaseURL` depends on the location of the database
+        databaseURL: "https://wywm-gobblin-store-default-rtdb.europe-west1.firebasedatabase.app/",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+
+      import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
+
+      // Listen for the submit event
+      document
+        .getElementById('checkoutForm')
+        .addEventListener('submit', formSubmit);
+
+      //Submit form
+      function formSubmit(e) {
+        e.preventDefault();
+        // Get Values from the DOM
+        let firstName = document.querySelector('#inputFirstName').value;
+        let lastName = document.querySelector('#inputLastName').value;
+        let email = document.querySelector('#inputEmail').value;
+        let phone = document.querySelector('#phoneNumber').value;
+        let address = document.querySelector('#inputAddress').value;
+        let cardNumber = document.querySelector('#inputCardNumber').value;
+        let cardExpiryDate = document.querySelector('#inputCardExpiryDate').value;
+        let cardCode = document.querySelector('#inputCardCode').value;
+
+        // Send message values
+        sendMessage(firstName, lastName, email, phone, address, cardNumber, cardExpiryDate, cardCode);
+      }
+
+      // Send Message to Firebase
+      function sendMessage(firstName, lastName, email, phone, address, cardNumber, cardExpiryDate, cardCode) {
+        const database = getDatabase();
+
+        set(ref(database, 'orders/' + Math.floor(Math.random() * 10000000)), {
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          phone: phone,
+          address: address,
+          cardNumber: cardNumber,
+          cardExpiryDate: cardExpiryDate,
+          cardCode: cardCode
+        }).then(() => {
+        // Show Alert Message
+        document.querySelector('.alert').style.display = 'block';
+        // Hide Alert Message After Seven Seconds
+        setTimeout(function () {
+        document.querySelector('.alert').style.display = 'none';
+        }, 7000);
+        // Clear values from the form
+        document.getElementById('checkoutForm').reset();
+        }).catch((error) => {
+          alert(error)
+        })
+      }
+      
+
+      // Initialize Realtime Database and get a reference to the service
+      const database = getDatabase(app);
+
+
+    </script>
 
   </body>
 </html>
