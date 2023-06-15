@@ -1,3 +1,87 @@
+// on document ready
+$(document).ready(() => {
+  // Load the header.html into the header div, once it's loaded execute callback to add class to headerHome div
+  $("#header").load("./template/header.html", () => {
+    $("#headerCheckout")
+      .removeClass()
+      .addClass("nav-link active text-black fw-bold");
+  });
+
+  // Load the footer.html into the footer div, once it's loaded execute callback to add class to footerHome div
+  $("#footer").load("./template/footer.html", () => {
+    $("#footerCheckout")
+      .removeClass()
+      .addClass("nav-link active text-black fw-bold");
+  });
+
+  // Load shoppingCart.html
+  $("#shoppingCart").load("./shoppingCart.html");
+
+  // Set product variable
+  let product = [];
+
+  if (localStorage.getItem("items")) {
+    products = JSON.parse(localStorage.getItem("items"));
+    let orderBody = $(".orderBody");
+
+    // render products name, price, and quantity
+    function updateBody(product) {
+      orderBody.empty(); // empty the initial contents of order body div before adding new items
+      products.map((product) => {
+        orderBody.append(
+          `<div class="orderDetails" id="${product.name}">
+            <div class="mb-4" id="productInfo">
+              <img class="image" src="${product.image}" alt="" width="100" height="100">
+              <div class="row">
+                <div class="name col-sm-3"><strong>${product.name}</strong></div>
+                <div class="price col-sm-5">$${product.price}/item</div>
+                <div class="quantity col-sm-2">x ${product.quantity}</div>
+                <div class="itemSubTotal col-sm-2">$${product.price * product.quantity}</div>
+              </div>
+            </div>
+          </div>`
+        );
+      });
+    };
+
+    // Run function
+    updateBody(product);
+
+    // Set checkoutTotal variable
+    var checkoutTotal = 0;
+
+    // Update total cost
+    function updateCartTotal(product) {
+
+      let checkoutArray = [];
+
+      products.map((product) => {
+        checkoutArray.push(product.quantity * product.price);
+      });
+      
+      // Sum array
+      checkoutTotal = checkoutArray.reduce((a, b) => a + b, 0);
+    };
+
+    // Run function
+    updateCartTotal(product);
+
+    // Append total cost div to bottom of checkout page
+    orderBody.append(
+      `<div class="checkoutTotal mt-4">
+        <div class="row">
+          <div class="col-sm-10 text-end"><strong>Total cost:</strong></div>
+          <div class="checkoutTotalText col-sm-2"><strong>$${checkoutTotal}</strong></div>
+      </div>`
+    );
+  };
+});
+
+
+
+
+
+
 // Bootstrap JavaScript for disabling form submissions if there are invalid fields
 (() => {
     'use strict'
@@ -17,3 +101,4 @@
       }, false)
     })
   })()
+
