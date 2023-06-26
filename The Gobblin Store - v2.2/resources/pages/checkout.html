@@ -15,8 +15,6 @@
     <link href="../styles/main.css" rel="stylesheet" />
     <!-- Load jQuery from a cdn (cloudflare) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-    <!-- Checkout JS business logic -->
-    <script src="../../resources/scripts/checkout.js"></script>
   </head>
 
   <body>
@@ -64,14 +62,14 @@
           </div>
           <div class="col-md-4">
               <label for="inputEmail" class="col-form-label">Email address</label>
-              <input type="email" id="inputEmail" class="form-control" aria-labelledby="emailHelpInline" placeholder="name@example.com" pattern="\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b" required>
+              <input type="email" id="inputEmail" class="form-control" aria-labelledby="emailHelpInline" placeholder="name@example.com" pattern="^(.+)@(.+)$" required>
               <div class="invalid-feedback">
                 Please enter your email address.
               </div>
           </div>
           <div class="col-md-4">
             <label for="phoneNumber" class="col-form-label">Phone Number</label>
-            <input type="tel" id="phoneNumber" class="form-control" aria-labelledby="phoneHumberInline" placeholder="00000000000" pattern="^(?:(?:\(?(?:0(?:0|11)\)?[\s-]?\(?|\+)44\)?[\s-]?(?:\(?0\)?[\s-]?)?)|(?:\(?0))(?:(?:\d{5}\)?[\s-]?\d{4,5})|(?:\d{4}\)?[\s-]?(?:\d{5}|\d{3}[\s-]?\d{3}))|(?:\d{3}\)?[\s-]?\d{3}[\s-]?\d{3,4})|(?:\d{2}\)?[\s-]?\d{4}[\s-]?\d{4}))(?:[\s-]?(?:x|ext\.?|\#)\d{3,4})?$" required>
+            <input type="tel" id="phoneNumber" class="form-control" aria-labelledby="phoneHumberInline" placeholder="00000000000" pattern="\d{11}" required>
             <div class="invalid-feedback">
               Please enter your phone number.
             </div>
@@ -107,7 +105,7 @@
         </div>
         <div class="row">
           <div class="clearfix">
-            <button type="submit" class="btn btn-primary float-end ps-5 pe-5">Order now</button>
+            <input type="submit" id="button" class="btn btn-primary float-end ps-5 pe-5" value="Order now"></input>
           </div>
         </div>
       </form>
@@ -124,6 +122,15 @@
       crossorigin="anonymous">
     </script>
 
+    <!-- Checkout JS business logic -->
+    <script src="../../resources/scripts/checkout.js"></script>
+    
+    <!-- EmailJS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+    <script>emailjs.init('OaStgUBaejbAxjFos')</script>
+
+  
     <!-- Firebase -->
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";

@@ -44,7 +44,7 @@ $(document).ready(function () {
 
       // Run function
       updateBody(product);
-      
+
       // Set cartTotal variable
       var cartTotal = 0;
 
@@ -163,5 +163,12 @@ $(document).ready(function () {
         localStorage.setItem("items", JSON.stringify(products));
       });
     }
+
+    const items = { ...localStorage };
+    console.log(items);
+
+   
+
+
   });
 });

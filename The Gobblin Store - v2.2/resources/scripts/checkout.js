@@ -77,11 +77,6 @@ $(document).ready(() => {
   };
 });
 
-
-
-
-
-
 // Bootstrap JavaScript for disabling form submissions if there are invalid fields
 (() => {
     'use strict'
@@ -101,4 +96,51 @@ $(document).ready(() => {
       }, false)
     })
   })()
+
+// emailjs script
+const btn = document.getElementById('button');
+
+document.getElementById('checkoutForm')
+.addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  btn.value = 'Sending...';
+
+  const serviceID = 'default_service';
+  const templateID = 'template_7fms13o';
+
+  var params = {
+    firstName: document.getElementById("inputFirstName").value,
+    lastName: document.getElementById("inputLastName").value,
+    email: document.getElementById("inputEmail").value,
+    html: products.map((product) => {
+            `<div class="orderDetails" id="${product.name}">
+              <div class="mb-4" id="productInfo">
+                <img class="image" src="${product.image}" alt="" width="100" height="100">
+                <div class="row">
+                  <div class="name col-sm-3"><strong>${product.name}</strong></div>
+                  <div class="price col-sm-5">$${product.price}/item</div>
+                  <div class="quantity col-sm-2">x ${product.quantity}</div>
+                  <div class="itemSubTotal col-sm-2">$${product.price * product.quantity}</div>
+                </div>
+              </div>
+            </div>`
+          })
+  };
+
+  emailjs
+    .send(serviceID, templateID, params)
+    .then((res) => {
+      document.getElementById("inputFirstName").value = "";
+      document.getElementById("inputLastName").value = "";
+      document.getElementById("inputEmail").value = "";
+      btn.value = 'Order now';
+      alert("Sent!");
+    })
+    .catch((err) => {
+      btn.value = 'Order now';
+      alert(JSON.stringify(err));
+      console.log(err);
+    });
+});
 
