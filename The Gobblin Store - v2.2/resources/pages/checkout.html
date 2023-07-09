@@ -68,8 +68,8 @@
               </div>
           </div>
           <div class="col-md-4">
-            <label for="phoneNumber" class="col-form-label">Phone Number</label>
-            <input type="tel" id="phoneNumber" class="form-control" aria-labelledby="phoneHumberInline" placeholder="00000000000" pattern="\d{11}" required>
+            <label for="inputPhoneNumber" class="col-form-label">Phone Number</label>
+            <input type="tel" id="inputPhoneNumber" class="form-control" aria-labelledby="phoneNumberInline" placeholder="00000000000" pattern="\d{11}" required>
             <div class="invalid-feedback">
               Please enter your phone number.
             </div>
@@ -160,7 +160,7 @@
         let firstName = document.querySelector('#inputFirstName').value;
         let lastName = document.querySelector('#inputLastName').value;
         let email = document.querySelector('#inputEmail').value;
-        let phone = document.querySelector('#phoneNumber').value;
+        let phone = document.querySelector('#inputPhoneNumber').value;
         let address = document.querySelector('#inputAddress').value;
         let cardNumber = document.querySelector('#inputCardNumber').value;
         let cardExpiryDate = document.querySelector('#inputCardExpiryDate').value;
