@@ -113,6 +113,10 @@ document.getElementById('checkoutForm')
     firstName: document.getElementById("inputFirstName").value,
     lastName: document.getElementById("inputLastName").value,
     email: document.getElementById("inputEmail").value,
+    phone: document.getElementById("inputPhoneNumber").value,
+    address: document.getElementById("inputAddress").value,
+    cardNumber: '**** **** **** ' + document.getElementById("inputCardNumber").value.slice(0,4),
+    cardExpiry: document.getElementById("inputCardExpiryDate").value,
     html: products.map((product) => {
             `<div class="orderDetails" id="${product.name}">
               <div class="mb-4" id="productInfo">
@@ -134,6 +138,10 @@ document.getElementById('checkoutForm')
       document.getElementById("inputFirstName").value = "";
       document.getElementById("inputLastName").value = "";
       document.getElementById("inputEmail").value = "";
+      document.getElementById("inputPhoneNumber").value = "";
+      document.getElementById("inputAddress").value = "";
+      document.getElementById("inputCardNumber").value = "";
+      document.getElementById("inputCardExpiryDate").value = "";    
       btn.value = 'Order now';
       alert("Sent!");
     })
@@ -142,5 +150,6 @@ document.getElementById('checkoutForm')
       alert(JSON.stringify(err));
       console.log(err);
     });
+
 });
 
