@@ -1,0 +1,28 @@
+.card {
+    background: rgb(202, 200, 200);
+    margin-bottom: 2em;
+}
+
+
+.list-group-item {
+    background: rgb(231, 231, 231);
+}
+
+/* @media screen and (min-width: 40em) {
+    .cards {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .card {
+        flex: 0 1 calc(50% - 1em);
+    }
+}
+
+@media screen and (min-width: 60em) {
+
+    .card {
+        flex: 0 1 calc(25% - 1em);
+    }
+} */

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Goblin Store</title>
+    <link rel="icon" type="image/ico" href="../styles/pics/tiny.png" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <link href="../styles/main.css" rel="stylesheet" />
+    <!-- Load jQuery from a cdn (cloudflare) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+  </head>
+
+  <body>
+    <!-- Header -->
+    <div id="header"></div>
+
+    <div class="container pt-3 pb-5">
+      <h1 class="mb-4">Checkout</h1>
+      <h2 class="mb-4">Order details</h2>
+      <div class="orderBody">
+        <!-- Section for the order details to be loaded from the shopping cart -->
+        <p>Order body</p>
+        <div class="orderDetails">
+          <p>Order details</p>
+        </div>
+        <div class="checkoutTotal">
+          <p>Checkout total</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="container pt-3 pb-5">
+      <h2>Contact details</h2>
+      <p>Please enter your details below and click the 'Order now' button to make your purchase.</p>
+      <p>(All fields are required).</p>
+
+      <!-- Alert when form is sent successfully -->
+      <div class="alert">Form Submitted Successfully</div>
+
+      <form method="POST" id="checkoutForm">
+        <div class="row g-3 needs-validation" novalidate>
+          <div class="col-md-6">
+              <label for="inputFirstName" class="col-form-label">First name</label>
+              <input type="text" id="inputFirstName" class="form-control" aria-labelledby="firstNamelHelpInline" placeholder="Alan" required>
+              <div class="invalid-feedback">
+                Please enter your first name.
+              </div>
+          </div>
+          <div class="col-md-4">
+            <label for="inputLastName" class="col-form-label">Last name</label>
+            <input type="text" id="inputLastName" class="form-control" aria-labelledby="lastNameHelpInline" placeholder="Henry" required>
+            <div class="invalid-feedback">
+              Please enter your last name.
+            </div>
+          </div>
+          <div class="col-md-4">
+              <label for="inputEmail" class="col-form-label">Email address</label>
+              <input type="email" id="inputEmail" class="form-control" aria-labelledby="emailHelpInline" placeholder="name@example.com" pattern="^(.+)@(.+)$" required>
+              <div class="invalid-feedback">
+                Please enter your email address.
+              </div>
+          </div>
+          <div class="col-md-4">
+            <label for="inputPhoneNumber" class="col-form-label">Phone Number</label>
+            <input type="tel" id="inputPhoneNumber" class="form-control" aria-labelledby="phoneNumberInline" placeholder="00000000000" pattern="\d{11}" required>
+            <div class="invalid-feedback">
+              Please enter your phone number.
+            </div>
+          </div>
+          <div class="col-md-4">
+            <label for="inputAddress" class="col-form-label">Address</label>
+            <input type="text" id="inputAddress" class="form-control" aria-labelledby="addressHelpInline" placeholder="1 Buckingham Palace, London, SW1A 1AA" required>
+            <div class="invalid-feedback">
+              Please enter your address.
+            </div>
+          </div>
+          <div class="col-md-4">
+            <label for="inputCardNumber" class="col-form-label">Credit Card Number</label>
+            <input type="text" id="inputCardNumber" class="form-control" aria-labelledby="cardNumberHelpInline" placeholder="12345678912345678" pattern="\d{16}" required>
+            <div class="invalid-feedback">
+              Please enter your credit card number.
+            </div>
+          </div>
+          <div class="col-md-4">
+            <label for="inputCardExpiryDate" class="col-form-label">Credit Card Expiry Date</label>
+            <input type="text" id="inputCardExpiryDate" class="form-control" aria-labelledby="cardExpiryDateHelpInline" placeholder="12/25" pattern="\d{2}/\d{2}" required>
+            <div class="invalid-feedback">
+              Please enter your credit card expiry date (mm/yy).
+            </div>
+          </div>
+          <div class="col-md-4 mb-4">
+            <label for="inputCardCode" class="col-form-label">Credit Card 3-digit Code</label>
+            <input type="text" id="inputCardCode" class="form-control" aria-labelledby="cardCodeHelpInline" placeholder="123" pattern="\d{3}" required>
+            <div class="invalid-feedback">
+              Please enter your credit card security code.
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="clearfix">
+            <input type="submit" id="button" class="btn btn-primary float-end ps-5 pe-5" value="Order now"></input>
+          </div>
+        </div>
+      </form>
+    </div>
+      
+    <!-- Shopping Cart Button -->
+    <div id="shoppingCart"></div>
+
+    <!-- Footer -->
+    <div id="footer"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous">
+    </script>
+
+    <!-- Checkout JS business logic -->
+    <script src="../../resources/scripts/checkout.js"></script>
+    
+    <!-- EmailJS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+    <script>emailjs.init('OaStgUBaejbAxjFos')</script>
+
+  
+    <!-- Firebase -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+
+      // TODO: Replace the following with your app's Firebase project configuration
+      // See: https://firebase.google.com/docs/web/learn-more#config-object
+      const firebaseConfig = {
+        // ...
+        // The value of `databaseURL` depends on the location of the database
+        databaseURL: "https://wywm-gobblin-store-default-rtdb.europe-west1.firebasedatabase.app/",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+
+      import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
+
+      // Listen for the submit event
+      document
+        .getElementById('checkoutForm')
+        .addEventListener('submit', formSubmit);
+
+      //Submit form
+      function formSubmit(e) {
+        e.preventDefault();
+        // Get Values from the DOM
+        let firstName = document.querySelector('#inputFirstName').value;
+        let lastName = document.querySelector('#inputLastName').value;
+        let email = document.querySelector('#inputEmail').value;
+        let phone = document.querySelector('#inputPhoneNumber').value;
+        let address = document.querySelector('#inputAddress').value;
+        let cardNumber = document.querySelector('#inputCardNumber').value;
+        let cardExpiryDate = document.querySelector('#inputCardExpiryDate').value;
+        let cardCode = document.querySelector('#inputCardCode').value;
+
+        // Send message values
+        sendMessage(firstName, lastName, email, phone, address, cardNumber, cardExpiryDate, cardCode);
+      }
+
+      // Send Message to Firebase
+      function sendMessage(firstName, lastName, email, phone, address, cardNumber, cardExpiryDate, cardCode) {
+        const database = getDatabase();
+
+        set(ref(database, 'orders/' + Math.floor(Math.random() * 10000000)), {
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          phone: phone,
+          address: address,
+          cardNumber: cardNumber,
+          cardExpiryDate: cardExpiryDate,
+          cardCode: cardCode
+        }).then(() => {
+        // Show Alert Message
+        document.querySelector('.alert').style.display = 'block';
+        // Hide Alert Message After Seven Seconds
+        setTimeout(function () {
+        document.querySelector('.alert').style.display = 'none';
+        }, 7000);
+        // Clear values from the form
+        document.getElementById('checkoutForm').reset();
+        }).catch((error) => {
+          alert(error)
+        })
+      }      
+
+      // Initialize Realtime Database and get a reference to the service
+      const database = getDatabase(app);
+
+    </script>
+
+  </body>
+</html>
